@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/evenimente")
@@ -12,16 +13,28 @@ public class EvenimentController {
     List<Eveniment> evenimenteAgregate = new ArrayList<>();
 
     @GetMapping()
-    public List<Eveniment> getEvenimente() {
-        if(evenimenteAgregate.isEmpty()){
+    public List<Eveniment> getEvenimente(@RequestParam(required = false) Integer evenimentId) {
+
+
+        if (evenimenteAgregate.isEmpty()) {
             evenimenteAgregate.addAll(genericEvents());
         }
-        return evenimenteAgregate;
+
+
+        if (evenimentId == null) {
+            return evenimenteAgregate;
+
+        } else {
+            return evenimenteAgregate.stream().filter(e ->
+                    e.getId() == evenimentId
+            ).collect(Collectors.toList());
+        }
 
     }
 
     @PostMapping
-    public void createEveniment(@RequestBody Eveniment eveniment){
+    public void createEveniment(@RequestBody Eveniment eveniment) {
+        eveniment.generateID();
         evenimenteAgregate.add(eveniment);
     }
 

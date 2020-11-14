@@ -1,5 +1,9 @@
 package com.mobile.academy.trainingspringdemo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,11 +20,16 @@ public class Eveniment implements Serializable {
     private Date oraInceput;
     private Date oraFinal;
     private String date;
+    private int id;
+
+    private static int counter;
 
     public Eveniment(String evenimentInfo) {
 
         Pattern pattern = Pattern.compile("(.*?);(.*?);(([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9]?[0-9][0-9]));(([01]?\\d|2[0-3]):([0-5]?\\d));(([01]?\\d|2[0-3]):([0-5]?\\d))");
         Matcher matcher = pattern.matcher(evenimentInfo);
+
+        generateID();
 
         if (matcher.find()) {
             this.title = matcher.group(1);
@@ -38,7 +47,15 @@ public class Eveniment implements Serializable {
 
         }
     }
-    public Eveniment(){}
+
+    public Eveniment() {
+    }
+
+    public void generateID() {
+        this.id = counter;
+        counter++;
+
+    }
 
 
     //String ideal: " Titlu eveniment|Description|Data(zz/ll/aaaa)|OraInceput(hh:mm)|OraFinal(hh:mm)"
@@ -75,17 +92,16 @@ public class Eveniment implements Serializable {
         this.oraFinal = oraFinal;
     }
 
-    @Override
-    public String toString() {
-        return "Eveniment{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", oraInceput=" + oraInceput +
-                ", oraFinal=" + oraFinal +
-                '}';
+    public Integer getId() {
+        return id;
     }
 
-    public String extractDate(){
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public String extractDate() {
 
         return this.date;
 
