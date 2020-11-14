@@ -1,19 +1,17 @@
 package com.mobile.academy.trainingspringdemo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/evenimente")
 public class EvenimentController {
 
     List<Eveniment> evenimenteAgregate = new ArrayList<>();
 
-    @GetMapping("/evenimente")
+    @GetMapping()
     public List<Eveniment> getEvenimente() {
         if(evenimenteAgregate.isEmpty()){
             evenimenteAgregate.addAll(genericEvents());
@@ -22,7 +20,7 @@ public class EvenimentController {
 
     }
 
-    @PostMapping("/evenimente")
+    @PostMapping
     public void createEveniment(@RequestBody Eveniment eveniment){
         evenimenteAgregate.add(eveniment);
     }
