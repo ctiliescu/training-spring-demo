@@ -38,6 +38,7 @@ public class Eveniment implements Serializable {
 
         }
     }
+    public Eveniment(){}
 
 
     //String ideal: " Titlu eveniment|Description|Data(zz/ll/aaaa)|OraInceput(hh:mm)|OraFinal(hh:mm)"

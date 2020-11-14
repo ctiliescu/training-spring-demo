@@ -1,6 +1,8 @@
 package com.mobile.academy.trainingspringdemo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -13,10 +15,18 @@ public class EvenimentController {
 
     @GetMapping("/evenimente")
     public List<Eveniment> getEvenimente() {
-        evenimenteAgregate.addAll(genericEvents());
+        if(evenimenteAgregate.isEmpty()){
+            evenimenteAgregate.addAll(genericEvents());
+        }
         return evenimenteAgregate;
 
     }
+
+    @PostMapping("/evenimente")
+    public void createEveniment(@RequestBody Eveniment eveniment){
+        evenimenteAgregate.add(eveniment);
+    }
+
 
     public List<Eveniment> genericEvents() {
         List<Eveniment> evenimente = new ArrayList<>();
@@ -25,6 +35,7 @@ public class EvenimentController {
         evenimente.add(new Eveniment("Concert Fuego;impodobeste bradul;10/10/2020;12:00;23:00"));
 
         return evenimente;
-
     }
+
+
 }
