@@ -4,8 +4,11 @@ import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentService;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +24,18 @@ public class EvenimentController {
     public List<Eveniment> getEvenimente(@RequestParam(required = false) Integer evenimentId) throws EvenimentNotFound {
         return evenimentService.getListaEvenimente(evenimentId);
     }
+
+    /*
+    // alternativa exception handlerului ExceptionHandlerConfig in care tratezi exceptiile la nivel de controller si le transformit in httpResponses
+    @GetMapping()
+    public ResponseEntity<List<Eveniment>> getEvenimente(@RequestParam(required = false) Integer evenimentId) {
+        try {
+            return new ResponseEntity<>(evenimentService.getListaEvenimente(evenimentId), HttpStatus.OK);
+        } catch (EvenimentNotFound evenimentNotFound) {
+            ArrayList<Eveniment> eveniments = new ArrayList<>();
+            return new ResponseEntity<>(eveniments, HttpStatus.NOT_FOUND);
+        }
+    }*/
 
     @PostMapping
     public void createEveniment(@RequestBody Eveniment eveniment) {
