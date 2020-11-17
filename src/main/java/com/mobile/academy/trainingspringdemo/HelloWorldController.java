@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloWorldController {
 
+    //Creat pentru a demonstra ca Bean-urile sunt create singleton
+    int counter = 0;
     @GetMapping("/hi")
     @ResponseBody
     public String sayHello() {
-        return new String("Salut!");
+        counter++;
+        return new String("Salut!"+counter);
     }
 }
