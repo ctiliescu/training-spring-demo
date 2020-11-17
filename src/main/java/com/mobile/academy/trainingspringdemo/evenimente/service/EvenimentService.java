@@ -1,6 +1,7 @@
 package com.mobile.academy.trainingspringdemo.evenimente.service;
 
 import com.mobile.academy.trainingspringdemo.evenimente.Eveniment;
+import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class EvenimentService implements EvenimentServiceInterface {
         return evenimente;
     }
 
-    public List<Eveniment> getListaEvenimente(Integer evenimentId) {
+    public List<Eveniment> getListaEvenimente(Integer evenimentId) throws EvenimentNotFound {
         if (listaEvenimente.isEmpty()) {
             listaEvenimente.addAll(genericEvents());
         }
@@ -34,9 +35,13 @@ public class EvenimentService implements EvenimentServiceInterface {
         if (evenimentId == null) {
             return listaEvenimente;
         } else {
-            return listaEvenimente.stream().filter(e ->
+            List<Eveniment> listaFiltrata = listaEvenimente.stream().filter(e ->
                     e.getId() == evenimentId
             ).collect(Collectors.toList());
+            if(listaFiltrata.isEmpty()) {
+                throw new EvenimentNotFound("Eveniment Not Found!");
+            }
+            return listaFiltrata;
         }
     }
 }
