@@ -1,6 +1,7 @@
 package com.mobile.academy.trainingspringdemo;
 
 import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,14 +21,21 @@ public class HelloWorldController {
         throw new EvenimentNotFound("Hi Not Found Endpoint!!!");
     }
 
-    /*@GetMapping("/hi")
+    /*
+    @GetMapping("/hi")
     @ResponseBody
     public ResponseEntity<String> sayHello() {
         counter++;
         if(counter % 2 == 0) {
-            return new ResponseEntity("Salut!"+counter, HttpStatus.OK);
+            HttpHeaders responseHeaders = new HttpHeaders();
+         //   responseHeaders.set("Location", "http://www.google.ro");
+
+            ResponseEntity responseEntity = new ResponseEntity("Salut!" + counter, responseHeaders, HttpStatus.TEMPORARY_REDIRECT);
+            return responseEntity;
+
         } else {
             return new ResponseEntity("Hi Not Found Endpoint!!!", HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
+    */
 }
