@@ -1,18 +1,19 @@
-package com.mobile.academy.trainingspringdemo;
+package com.mobile.academy.trainingspringdemo.evenimente;
 
+import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/evenimente")
 public class EvenimentController {
 
+    // daca exista mai multe beans-uri initializate de Spring de acelasi tip el o sa selecteze pe primul din ele
     @Autowired
-    EvenimentService evenimentService;
+    EvenimentServiceInterface evenimentService;
+    //List<EvenimentServiceInterface> evenimentService;
 
     @GetMapping()
     public List<Eveniment> getEvenimente(@RequestParam(required = false) Integer evenimentId) {

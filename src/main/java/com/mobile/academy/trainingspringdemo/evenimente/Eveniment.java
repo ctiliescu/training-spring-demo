@@ -1,4 +1,4 @@
-package com.mobile.academy.trainingspringdemo;
+package com.mobile.academy.trainingspringdemo.evenimente;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Value;

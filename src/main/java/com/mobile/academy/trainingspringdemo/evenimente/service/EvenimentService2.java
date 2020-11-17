@@ -1,5 +1,6 @@
-package com.mobile.academy.trainingspringdemo;
+package com.mobile.academy.trainingspringdemo.evenimente.service;
 
+import com.mobile.academy.trainingspringdemo.evenimente.Eveniment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class EvenimentService {
+public class EvenimentService2 implements EvenimentServiceInterface {
 
     List<Eveniment> listaEvenimente = new ArrayList<>();
 
