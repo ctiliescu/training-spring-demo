@@ -3,6 +3,7 @@ package com.mobile.academy.trainingspringdemo.evenimente;
 import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentService;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentServiceInterface;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class EvenimentController {
     //List<EvenimentServiceInterface> evenimentService;
 
     @GetMapping()
+    @ApiOperation(value = "get all events description") // folosit pentru a customiza documentatia
     public List<Eveniment> getEvenimente(@RequestParam(required = false) Integer evenimentId) throws EvenimentNotFound {
         return evenimentService.getListaEvenimente(evenimentId);
     }
