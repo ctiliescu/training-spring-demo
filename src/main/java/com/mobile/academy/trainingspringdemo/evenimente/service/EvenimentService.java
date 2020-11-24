@@ -2,6 +2,7 @@ package com.mobile.academy.trainingspringdemo.evenimente.service;
 
 import com.mobile.academy.trainingspringdemo.evenimente.Eveniment;
 import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,11 +12,12 @@ import java.util.stream.Collectors;
 @Service
 public class EvenimentService implements EvenimentServiceInterface {
 
-    List<Eveniment> listaEvenimente = new ArrayList<>();
+   @Autowired
+   public EvenimenteRepository evenimenteRepository;
 
     public void createEveniment(Eveniment eveniment) {
-        eveniment.generateID();
-        listaEvenimente.add(eveniment);
+        evenimenteRepository.save(eveniment);
+ //       listaEvenimente.add(eveniment);
     }
 
     public List<Eveniment> genericEvents() {
@@ -28,20 +30,28 @@ public class EvenimentService implements EvenimentServiceInterface {
     }
 
     public List<Eveniment> getListaEvenimente(Integer evenimentId) throws EvenimentNotFound {
-        if (listaEvenimente.isEmpty()) {
-            listaEvenimente.addAll(genericEvents());
-        }
 
-        if (evenimentId == null) {
-            return listaEvenimente;
-        } else {
-            List<Eveniment> listaFiltrata = listaEvenimente.stream().filter(e ->
-                    e.getId() == evenimentId
-            ).collect(Collectors.toList());
-            if(listaFiltrata.isEmpty()) {
-                throw new EvenimentNotFound("Eveniment Not Found!");
-            }
-            return listaFiltrata;
-        }
+        return evenimenteRepository.findAll();
+
+
+
+
+
+
+//        if (listaEvenimente.isEmpty()) {
+//            listaEvenimente.addAll(genericEvents());
+//        }
+//
+//        if (evenimentId == null) {
+//            return listaEvenimente;
+//        } else {
+//            List<Eveniment> listaFiltrata = listaEvenimente.stream().filter(e ->
+//                    e.getId() == evenimentId
+//            ).collect(Collectors.toList());
+//            if(listaFiltrata.isEmpty()) {
+//                throw new EvenimentNotFound("Eveniment Not Found!");
+//            }
+//            return listaFiltrata;
+//        }
     }
 }
