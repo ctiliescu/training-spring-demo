@@ -10,6 +10,9 @@ private int errorCode;
         this.errorCode = errorCode;
     }
 
+    public ErrorObject() {
+    }
+
     public String getMessage() {
         return message;
     }
@@ -24,6 +27,14 @@ private int errorCode;
 
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorObject{" +
+                "message='" + message + '\'' +
+                ", errorCode=" + errorCode +
+                '}';
     }
 }
 
