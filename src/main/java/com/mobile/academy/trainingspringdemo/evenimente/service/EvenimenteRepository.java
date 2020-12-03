@@ -12,7 +12,7 @@ import java.util.List;
 public interface EvenimenteRepository extends JpaRepository<Eveniment,Integer> {
 
 
-    @Query("select id,title,description,oraInceput,oraFinal from evenimente where DATE(oraInceput) = ?1")
+    @Query("select id from evenimente where DATE(oraInceput) = ?1")
     List<Eveniment> getEvenimentsByDate(String date);
 
 

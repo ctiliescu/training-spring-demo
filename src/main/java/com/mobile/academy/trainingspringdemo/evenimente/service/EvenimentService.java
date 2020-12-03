@@ -5,10 +5,7 @@ import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,9 +14,31 @@ public class EvenimentService implements EvenimentServiceInterface {
    @Autowired
    public EvenimenteRepository evenimenteRepository;
 
-    public void createEveniment(Eveniment eveniment) {
-        evenimenteRepository.save(eveniment);
- //       listaEvenimente.add(eveniment);
+    public void createEveniment(Eveniment eveniment) throws EvenimentNotFound {
+
+
+        Map<String, List<Eveniment>> listaEvenimente = new HashMap<>();
+
+         for (Eveniment e: evenimenteRepository.findAll()
+             ) {
+            List<Eveniment> evenimentePerZi = new ArrayList<>();
+            evenimentePerZi.add(e);
+            listaEvenimente.put(e.extractDate(),evenimentePerZi);
+        }
+
+
+        if (!listaEvenimente.containsKey(eveniment.extractDate())) {
+            evenimenteRepository.save(eveniment);
+        } else {
+            Optional<Eveniment> optEv = listaEvenimente.get(eveniment.extractDate()).stream().filter(event -> checkConflict(event, eveniment)).findFirst();
+            if (optEv.isPresent()) {
+                throw new EvenimentNotFound("Data este deja ocupata!");
+            } else {
+                evenimenteRepository.save(eveniment);
+            }
+        }
+
+        //       listaEvenimente.add(eveniment);
     }
 
 //    public List<Eveniment> genericEvents() {
@@ -32,6 +51,7 @@ public class EvenimentService implements EvenimentServiceInterface {
 //    }
 
     public List<Eveniment> getListaEvenimente(Integer evenimentId) throws EvenimentNotFound {
+
 
         return evenimenteRepository.findAll();
 

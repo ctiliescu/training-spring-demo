@@ -36,6 +36,9 @@ public class Eveniment implements Serializable {
 
     private static int counter;
 
+    @Transient
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
     public Eveniment(String evenimentInfo) {
 
         Pattern pattern = Pattern.compile("(.*?);(.*?);(([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9]?[0-9][0-9]));(([01]?\\d|2[0-3]):([0-5]?\\d));(([01]?\\d|2[0-3]):([0-5]?\\d))");
@@ -115,7 +118,8 @@ public class Eveniment implements Serializable {
 
     public String extractDate() {
 
-        return this.date;
+        this.date = formatter.format(oraInceput);
+        return date;
 
     }
 

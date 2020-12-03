@@ -46,8 +46,8 @@ public class EvenimentController {
         }
     }*/
 
-    @PostMapping
-    public void createEveniment(@RequestBody Eveniment eveniment) {
+    @PostMapping("/addevent")
+    public void createEveniment(@RequestBody Eveniment eveniment) throws EvenimentNotFound {
         evenimentService.createEveniment(eveniment);
     }
 }
