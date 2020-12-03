@@ -30,7 +30,6 @@ public class EvenimentController {
     }
 
     @GetMapping("/getbydate")
-    @ApiOperation(value = "get events by date") // folosit pentru a customiza documentatia
     public List<Eveniment> getEvenimentByDate(@RequestParam String date) throws EvenimentNotFound {
         return evenimentService.getListaEvenimenteByDate(date);
     }
