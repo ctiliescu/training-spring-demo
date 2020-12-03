@@ -16,19 +16,16 @@ public class EvenimentService implements EvenimentServiceInterface {
 
     public void createEveniment(Eveniment eveniment) throws EvenimentNotFound {
 
-
         Map<String, List<Eveniment>> listaEvenimente = new HashMap<>();
-
-
-
-
         for (Eveniment e : evenimenteRepository.findAll()
         ) {
             List<Eveniment> evenimentePerZi = new ArrayList<>();
             evenimentePerZi.add(e);
-            listaEvenimente.merge(e.extractDate(),listaEvenimente.get(e.extractDate()),);
+            if (!listaEvenimente.containsKey(e.extractDate())){
+                listaEvenimente.put(e.extractDate(),evenimentePerZi);
+            }else{
+            listaEvenimente.get(e.extractDate()).add(e);}
         }
-
 
         if (!listaEvenimente.containsKey(eveniment.extractDate())) {
             evenimenteRepository.save(eveniment);
@@ -40,7 +37,6 @@ public class EvenimentService implements EvenimentServiceInterface {
                 evenimenteRepository.save(eveniment);
             }
         }
-
     }
 
 
@@ -54,25 +50,6 @@ public class EvenimentService implements EvenimentServiceInterface {
 
         return evenimenteRepository.getEvenimentsByDate(date);
     }
-
-//
-//    public void adaugareEvenimente(Eveniment e) throws EventConstructExceptions {
-//
-//        if (!listaEvenimente.containsKey(e.extractDate())) {
-//            List<Eveniment> evenimentePerZi = new ArrayList<>();
-//            evenimentePerZi.add(e);
-//            listaEvenimente.put(e.extractDate(), evenimentePerZi);
-//        } else {
-//
-//            Optional<Eveniment> optEv = listaEvenimente.get(e.extractDate()).stream().filter(event -> checkConflict(event, e)).findFirst();
-//            if (optEv.isPresent()) {
-//                throw new EventConstructExceptions("Data este deja ocupata!");
-//            } else {
-//                listaEvenimente.get(e.extractDate()).add(e);
-//            }
-//        }
-//    }
-//
 
 
     private boolean checkConflict(Eveniment e1, Eveniment e2) {
