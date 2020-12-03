@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,23 +22,18 @@ public class EvenimentService implements EvenimentServiceInterface {
  //       listaEvenimente.add(eveniment);
     }
 
-    public List<Eveniment> genericEvents() {
-        List<Eveniment> evenimente = new ArrayList<>();
-
-        evenimente.add(new Eveniment("Concert Metallica;asdasdasd;10/10/2020;10:00;11:59"));
-        evenimente.add(new Eveniment("Concert Fuego;impodobeste bradul;10/10/2020;12:00;23:00"));
-
-        return evenimente;
-    }
+//    public List<Eveniment> genericEvents() {
+//        List<Eveniment> evenimente = new ArrayList<>();
+//
+//        evenimente.add(new Eveniment("Concert Metallica;asdasdasd;10/10/2020;10:00;11:59"));
+//        evenimente.add(new Eveniment("Concert Fuego;impodobeste bradul;10/10/2020;12:00;23:00"));
+//
+//        return evenimente;
+//    }
 
     public List<Eveniment> getListaEvenimente(Integer evenimentId) throws EvenimentNotFound {
 
         return evenimenteRepository.findAll();
-
-
-
-
-
 
 //        if (listaEvenimente.isEmpty()) {
 //            listaEvenimente.addAll(genericEvents());
@@ -53,5 +50,37 @@ public class EvenimentService implements EvenimentServiceInterface {
 //            }
 //            return listaFiltrata;
 //        }
+    }
+
+    public List<Eveniment> getListaEvenimenteByDate(String date) throws EvenimentNotFound {
+
+        return evenimenteRepository.getEvenimentsByDate(date);
+    }
+
+//
+//    public void adaugareEvenimente(Eveniment e) throws EventConstructExceptions {
+//
+//        if (!listaEvenimente.containsKey(e.extractDate())) {
+//            List<Eveniment> evenimentePerZi = new ArrayList<>();
+//            evenimentePerZi.add(e);
+//            listaEvenimente.put(e.extractDate(), evenimentePerZi);
+//        } else {
+//
+//            Optional<Eveniment> optEv = listaEvenimente.get(e.extractDate()).stream().filter(event -> checkConflict(event, e)).findFirst();
+//            if (optEv.isPresent()) {
+//                throw new EventConstructExceptions("Data este deja ocupata!");
+//            } else {
+//                listaEvenimente.get(e.extractDate()).add(e);
+//            }
+//        }
+//    }
+//
+//    public void displayCalendarByDay(String date) {
+//        listaEvenimente.get(date).stream().forEach(System.out::println);
+//    }
+
+    private boolean checkConflict(Eveniment e1, Eveniment e2) {
+
+        return !(e1.getOraFinal().before(e2.getOraInceput()) || e1.getOraInceput().after(e2.getOraFinal()));
     }
 }

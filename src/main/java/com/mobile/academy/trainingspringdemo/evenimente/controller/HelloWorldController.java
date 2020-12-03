@@ -1,4 +1,4 @@
-package com.mobile.academy.trainingspringdemo;
+package com.mobile.academy.trainingspringdemo.evenimente.controller;
 
 import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import org.springframework.http.HttpHeaders;

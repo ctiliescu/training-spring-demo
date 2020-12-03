@@ -1,5 +1,6 @@
-package com.mobile.academy.trainingspringdemo.evenimente;
+package com.mobile.academy.trainingspringdemo.evenimente.controller;
 
+import com.mobile.academy.trainingspringdemo.evenimente.Eveniment;
 import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentService;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentServiceInterface;
@@ -25,6 +26,12 @@ public class EvenimentController {
     @ApiOperation(value = "get all events description") // folosit pentru a customiza documentatia
     public List<Eveniment> getEvenimente(@RequestParam(required = false) Integer evenimentId) throws EvenimentNotFound {
         return evenimentService.getListaEvenimente(evenimentId);
+    }
+
+    @GetMapping("/getbydate")
+    @ApiOperation(value = "get events by date") // folosit pentru a customiza documentatia
+    public List<Eveniment> getEvenimentByDate(@RequestParam String date) throws EvenimentNotFound {
+        return evenimentService.getListaEvenimenteByDate(date);
     }
 
     /*
