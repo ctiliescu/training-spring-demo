@@ -11,19 +11,22 @@ import java.util.stream.Collectors;
 @Service
 public class EvenimentService implements EvenimentServiceInterface {
 
-   @Autowired
-   public EvenimenteRepository evenimenteRepository;
+    @Autowired
+    public EvenimenteRepository evenimenteRepository;
 
     public void createEveniment(Eveniment eveniment) throws EvenimentNotFound {
 
 
         Map<String, List<Eveniment>> listaEvenimente = new HashMap<>();
 
-         for (Eveniment e: evenimenteRepository.findAll()
-             ) {
+
+
+
+        for (Eveniment e : evenimenteRepository.findAll()
+        ) {
             List<Eveniment> evenimentePerZi = new ArrayList<>();
             evenimentePerZi.add(e);
-            listaEvenimente.put(e.extractDate(),evenimentePerZi);
+            listaEvenimente.merge(e.extractDate(),listaEvenimente.get(e.extractDate()),);
         }
 
 
@@ -38,38 +41,13 @@ public class EvenimentService implements EvenimentServiceInterface {
             }
         }
 
-        //       listaEvenimente.add(eveniment);
     }
 
-//    public List<Eveniment> genericEvents() {
-//        List<Eveniment> evenimente = new ArrayList<>();
-//
-//        evenimente.add(new Eveniment("Concert Metallica;asdasdasd;10/10/2020;10:00;11:59"));
-//        evenimente.add(new Eveniment("Concert Fuego;impodobeste bradul;10/10/2020;12:00;23:00"));
-//
-//        return evenimente;
-//    }
+
 
     public List<Eveniment> getListaEvenimente(Integer evenimentId) throws EvenimentNotFound {
 
-
         return evenimenteRepository.findAll();
-
-//        if (listaEvenimente.isEmpty()) {
-//            listaEvenimente.addAll(genericEvents());
-//        }
-//
-//        if (evenimentId == null) {
-//            return listaEvenimente;
-//        } else {
-//            List<Eveniment> listaFiltrata = listaEvenimente.stream().filter(e ->
-//                    e.getId() == evenimentId
-//            ).collect(Collectors.toList());
-//            if(listaFiltrata.isEmpty()) {
-//                throw new EvenimentNotFound("Eveniment Not Found!");
-//            }
-//            return listaFiltrata;
-//        }
     }
 
     public List<Eveniment> getListaEvenimenteByDate(String date) throws EvenimentNotFound {
@@ -95,9 +73,7 @@ public class EvenimentService implements EvenimentServiceInterface {
 //        }
 //    }
 //
-//    public void displayCalendarByDay(String date) {
-//        listaEvenimente.get(date).stream().forEach(System.out::println);
-//    }
+
 
     private boolean checkConflict(Eveniment e1, Eveniment e2) {
 
