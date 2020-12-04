@@ -39,4 +39,5 @@ public class EvenimentService2 implements EvenimentServiceInterface {
             ).collect(Collectors.toList());
         }
     }
+
 }

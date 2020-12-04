@@ -27,6 +27,7 @@ public class EvenimentController {
         return evenimentService.getListaEvenimente(evenimentId);
     }
 
+
     /*
     // alternativa exception handlerului ExceptionHandlerConfig in care tratezi exceptiile la nivel de controller si le transformit in httpResponses
     @GetMapping()
