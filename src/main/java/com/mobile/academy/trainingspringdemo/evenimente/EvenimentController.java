@@ -2,6 +2,7 @@ package com.mobile.academy.trainingspringdemo.evenimente;
 
 import com.mobile.academy.trainingspringdemo.evenimente.model.EvenimentNotFound;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentService;
+import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentService2;
 import com.mobile.academy.trainingspringdemo.evenimente.service.EvenimentServiceInterface;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class EvenimentController {
 
     // daca exista mai multe beans-uri initializate de Spring de acelasi tip el o sa selecteze pe primul din ele
     @Autowired
-    EvenimentService evenimentService;
+    EvenimentService2 evenimentService;
     //List<EvenimentServiceInterface> evenimentService;
 
     @GetMapping()
@@ -27,6 +28,10 @@ public class EvenimentController {
         return evenimentService.getListaEvenimente(evenimentId);
     }
 
+    @GetMapping("/api/v1/evenimente/{byDay}")
+    public void displayCalendarByDay(@PathVariable String date) {
+        displayCalendarByDay(date);
+    }
 
     /*
     // alternativa exception handlerului ExceptionHandlerConfig in care tratezi exceptiile la nivel de controller si le transformit in httpResponses
