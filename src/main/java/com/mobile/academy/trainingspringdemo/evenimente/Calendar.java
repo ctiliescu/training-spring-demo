@@ -30,20 +30,6 @@ public class Calendar {
         }
     }
 
-    public void adaugareEvenimentTastatura(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Introduceti eveniment in formatul urmator: " +
-                "Titlu;Descriere;Data;Ora Inceput;Ora final" + " \nexemplu "+
-                "Concert Metallica;asdasdasd;10/10/2020;10:00;11:59");
-        String input = scanner.nextLine();
-        try {
-            Eveniment newEvent = new Eveniment(input);
-            adaugareEvenimente(newEvent);
-        } catch (EventConstructExceptions eventConstructExceptions) {
-            eventConstructExceptions.printStackTrace();
-        }
-
-    }
 
     public Calendar(){};
 
@@ -66,27 +52,6 @@ public class Calendar {
         }
     }
 
-    public void displayCalendarByDay(String date) {
-        listaEvenimente.get(date).stream().forEach(System.out::println);
-    }
-
-    public void displayCalendarByDayTastatura(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Introduceti data pentru a vedea evenimente");
-        String date = scanner.nextLine();
-        displayCalendarByDay(date);
-    }
-
-    public String getEvents(){
-        //return listaEvenimente.toString();
-        String info = "";
-        for(String date : listaEvenimente.keySet()){
-            for(Eveniment e : listaEvenimente.get(date)){
-                info += date + e + "\n";
-            }
-        }
-        return info;
-    }
 
     private boolean checkConflict(Eveniment e1, Eveniment e2) {
 
