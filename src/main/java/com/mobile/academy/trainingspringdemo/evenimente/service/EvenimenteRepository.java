@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
-import java.util.Date;
+
 import java.util.List;
 
 @Repository
 public interface EvenimenteRepository extends JpaRepository<Eveniment,Integer> {
 
 
-    @Query("select id , title , description , oraInceput , oraFinal from evenimente where DATE(oraInceput) = ?1")
+    @Query(value = "select * from evenimente where DATE(ora_inceput) = ?1",nativeQuery = true)
     List<Eveniment> getEvenimentsByDate(String date);
 
 }
